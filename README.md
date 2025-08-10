@@ -4,11 +4,10 @@ Power BI dashboard analyzing customer demographics, loan portfolio, and financia
 
 An interactive **3-page Power BI dashboard** delivering insights into **Customer Demographics**, **Loan Portfolio & Performance**, and **Financial Risk Analysis**.
 
-📂 **Files in this repo**
-- `Financial Loan data.xlsx` → Dataset used for the analysis.
-- `Financial_Dashboard.pbip` → Power BI dashboard file.
-- `screenshots/` → Contains PNG images of dashboard pages.
-- `README.md` → Project documentation & insights.
+- [Financial Loan Data.xlsx](Financial%20Loan%20Data.xlsx) → Dataset used for the analysis.  
+- [Financial_Dashboard.pbix](Financial_Loan_Dashboard.pbix) → Power BI dashboard file.  
+- [screenshots/](screenshots) → Contains PNG images of dashboard pages.  
+- [README.md](README.md) → Project documentation & insights.  
 
 ---
 
