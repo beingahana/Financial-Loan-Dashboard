@@ -15,16 +15,16 @@ An interactive **3-page Power BI dashboard** delivering insights into **Customer
 ## 📌 Dashboard Pages
 
 **1️⃣ Customer Demographics**  
-![Customer Demographics](screenshots/CustomerDemographics.png)  
+![Customer Demographics](screenshots/Customer%20Demographics.png)   
 *Shows customer segmentation by gender, education, income, and credit score.*
 
 **2️⃣ Loan Portfolio & Performance**  
-![Loan Portfolio & Performance](screenshots/LoanPotfolio&Performance.png)  
+![Loan Portfolio & Performance](screenshots/Loan%20Portfolio%20%26%20Performance.png) 
 *Highlights loan distribution by type & status, top 10 active & defaulted loans, and interest rate trends.*
 
 **3️⃣ Financial Risk Analysis**  
-![Financial Risk Analysis](screenshots/Financial_Risk.png)  
-*Focuses on high-risk & defaulted loans by employment type, income, and education level.*
+![Financial Risk Analysis](screenshots/Financial%20Risk%20Analysis.png) 
+ *Focuses on high-risk & defaulted loans by employment type, income, and education level.*
 
 ---
 
