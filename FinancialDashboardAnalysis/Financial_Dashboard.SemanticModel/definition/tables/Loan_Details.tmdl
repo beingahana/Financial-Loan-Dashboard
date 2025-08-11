@@ -1,0 +1,186 @@
+table Loan_Details
+	lineageTag: ffd1de73-12e4-4ed9-a092-f1f5778f8afe
+
+	column Loan_ID
+		dataType: string
+		lineageTag: 30273d06-4e78-4352-8347-9205d3827094
+		summarizeBy: none
+		sourceColumn: Loan_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_ID
+		dataType: string
+		lineageTag: 726cdcd2-03d7-4d2b-901c-c0d7fb9118dd
+		summarizeBy: none
+		sourceColumn: Customer_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Loan_Amount
+		dataType: int64
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 3735fbcd-4b97-4e52-9b3e-906de6026915
+		summarizeBy: sum
+		sourceColumn: Loan_Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column Interest_Rate
+		dataType: double
+		lineageTag: b0f8d7d0-ac33-4c94-be83-f9477b55daa9
+		summarizeBy: sum
+		sourceColumn: Interest_Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Term
+		dataType: int64
+		formatString: 0
+		lineageTag: 2c02ed1c-4686-4478-8cda-7e67f7b1b0fd
+		summarizeBy: sum
+		sourceColumn: Term
+
+		annotation SummarizationSetBy = Automatic
+
+	column Loan_Type
+		dataType: string
+		lineageTag: e574a20f-4206-4f6d-aca0-8db405397bce
+		summarizeBy: none
+		sourceColumn: Loan_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Issue_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a43e66e0-bdd0-435c-9599-bdbe93b9ab9d
+		summarizeBy: none
+		sourceColumn: Issue_Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Status
+		dataType: string
+		lineageTag: 312ab8cc-36a0-421e-b89a-7f2ebbb6e6c1
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Monthly_Installment
+		dataType: double
+		lineageTag: 65514902-9098-4cc5-a304-38e020a559fe
+		summarizeBy: sum
+		sourceColumn: Monthly_Installment
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Name
+		dataType: string
+		lineageTag: 7ec74b1a-fdf9-4e66-8797-efc30f3cf6e4
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: a5d6c2bc-b38c-4868-8267-c60e70bf6b77
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 5c223e08-064c-40a0-bd66-fd2b272275aa
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Income
+		dataType: int64
+		formatString: 0
+		lineageTag: 236a54bc-fcdd-4b64-93c6-b6da44490db1
+		summarizeBy: sum
+		sourceColumn: Income
+
+		annotation SummarizationSetBy = Automatic
+
+	column Employment_Status
+		dataType: string
+		lineageTag: faedf0ab-9c4b-4755-805e-0a880992c006
+		summarizeBy: none
+		sourceColumn: Employment_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Education_Level
+		dataType: string
+		lineageTag: 63607eaa-1607-42aa-a939-f9f3323f04ed
+		summarizeBy: none
+		sourceColumn: Education_Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column Credit_Score
+		dataType: int64
+		formatString: 0
+		lineageTag: 1992d94d-ecd5-42a8-997b-d0d707f14b0f
+		summarizeBy: sum
+		sourceColumn: Credit_Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Groups'
+		dataType: string
+		lineageTag: 04a65d9c-6689-4a39-8f1d-624b99d25988
+		summarizeBy: none
+		sourceColumn: Age Groups
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit Score Buckets'
+		dataType: string
+		lineageTag: 8b33c9eb-29a3-4762-a833-754de022c910
+		summarizeBy: none
+		sourceColumn: Credit Score Buckets
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Buckets'
+		dataType: string
+		lineageTag: b8c07707-eca5-4d71-b9a5-fa61f03d54b9
+		summarizeBy: none
+		sourceColumn: Income Buckets
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Loan_Details = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\sarka\Desktop\Ahana\CRIO PowerBI\QUESTION_Modeling3POWERBI.xlsx"), null, true),
+				    Loan_Details_Sheet = Source{[Item="Loan_Details",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Loan_Details_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Loan_ID", type text}, {"Customer_ID", type text}, {"Loan_Amount", Int64.Type}, {"Interest_Rate", type number}, {"Term", Int64.Type}, {"Loan_Type", type text}, {"Issue_Date", Int64.Type}, {"Status", type text}, {"Monthly_Installment", type number}, {"Column10", type any}, {"Column11", type any}, {"Column12", type any}, {"Column13", type any}, {"Column14", type any}, {"Column15", type any}, {"Column16", type any}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}, {"Column22", type any}, {"Column23", type any}, {"Column24", type any}, {"Column25", type any}, {"Column26", type any}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type",{"Loan_ID", "Customer_ID", "Loan_Amount", "Interest_Rate", "Term", "Loan_Type", "Issue_Date", "Status", "Monthly_Installment"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Issue_Date", type date}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type1", {"Customer_ID"}, Customer_Details, {"Customer_ID"}, "Customer_Details", JoinKind.LeftOuter),
+				    #"Expanded Customer_Details" = Table.ExpandTableColumn(#"Merged Queries", "Customer_Details", {"Name", "Age", "Gender", "Income", "Employment_Status", "Education_Level", "Credit_Score", "Age Groups", "Credit Score Buckets", "Income Buckets"}, {"Name", "Age", "Gender", "Income", "Employment_Status", "Education_Level", "Credit_Score", "Age Groups", "Credit Score Buckets", "Income Buckets"})
+				in
+				    #"Expanded Customer_Details"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

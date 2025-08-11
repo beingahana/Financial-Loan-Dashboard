@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 389,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 269,
+            "y": 188
+          },
+          "nodeIndex": "Customer_Details",
+          "nodeLineageTag": "08bd3bb2-914b-4bbe-9af0-c334b8fa185f",
+          "size": {
+            "height": 242,
+            "width": 217
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 648,
+            "y": 17
+          },
+          "nodeIndex": "Loan_Details",
+          "nodeLineageTag": "ffd1de73-12e4-4ed9-a092-f1f5778f8afe",
+          "size": {
+            "height": 280,
+            "width": 205
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Date",
+          "nodeLineageTag": "fc138079-e300-4871-baf4-50726c10688c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 903,
+            "y": 163
+          },
+          "nodeIndex": "Analysis",
+          "nodeLineageTag": "6b360104-b294-4b21-88b0-5fe9fa8ee70c",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

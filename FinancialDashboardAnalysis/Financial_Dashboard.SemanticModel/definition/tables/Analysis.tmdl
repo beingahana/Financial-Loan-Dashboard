@@ -1,0 +1,72 @@
+table Analysis
+	lineageTag: 6b360104-b294-4b21-88b0-5fe9fa8ee70c
+
+	measure 'Total Loan Amount' = SUM(Loan_Details[Loan_Amount])
+		formatString: 0
+		lineageTag: 13e8d6e5-07e3-47d1-9df6-18a3119f2e1e
+
+	measure 'Average Interest Rate' = AVERAGE(Loan_Details[Interest_Rate])
+		lineageTag: 75aadd1b-a8d0-4d7d-8400-6c549ecb7b97
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Monthly Installment' = AVERAGE(Loan_Details[Monthly_Installment])
+		lineageTag: 27ee41e8-b013-49dc-9e48-2da50725e0ad
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Loan Status Count' = COUNTROWS(Loan_Details)
+		formatString: 0
+		lineageTag: 0b4c3a0e-ee01-4a43-8623-d2dc6a630c50
+
+	measure 'Total Customers' = COUNTA(Customer_Details[Customer_ID])
+		formatString: 0
+		lineageTag: 2f139701-f189-46d1-851b-b7e566bb40ef
+
+	measure 'Average Income' = AVERAGE(Customer_Details[Income])
+		lineageTag: 088d0b7b-663d-4faa-b8fd-997ddeb97583
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Age' = AVERAGE(Customer_Details[Age])
+		lineageTag: 0df442ce-5a7a-4bd4-b280-ce084788563a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Defaulted_Loans = CALCULATE(COUNTROWS(Loan_Details), Loan_Details[Status] = "Defaulted")
+		formatString: 0
+		lineageTag: b16048a5-da88-46f5-9415-b11cfe73d4f1
+
+	measure Defaulted_Loan_Amount = ```
+			CALCULATE(SUM(Loan_Details[Loan_Amount]), FILTER(Loan_Details, Loan_Details[Status] = "Defaulted"))
+			
+			```
+		formatString: 0
+		lineageTag: bc122072-fef8-46c1-9ec7-8dec87967a09
+
+	measure High_Risk_Loan_Amount = ```
+			CALCULATE(SUM(Loan_Details[Loan_Amount]), FILTER(Customer_Details, Customer_Details[Risk Category] = "High Risk"))
+			
+			```
+		formatString: 0
+		lineageTag: dc9987df-41f9-41a3-a312-e3355ca96365
+
+	measure High_Risk_Loans = ```
+			CALCULATE(COUNTROWS(Loan_Details), Customer_Details[Risk Category] = "High Risk")
+			
+			```
+		formatString: 0
+		lineageTag: cfe5b621-863e-4f5f-9489-f76ea12dc14a
+
+	partition Analysis = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

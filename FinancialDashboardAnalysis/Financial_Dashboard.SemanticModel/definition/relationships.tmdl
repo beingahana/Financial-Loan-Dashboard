@@ -1,0 +1,13 @@
+relationship afc90d31-42ef-4766-8080-dadcf48aa972
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_c98a2ad8-9ada-48fd-b5b4-f4d223403e39.Date
+
+relationship 981bd67d-b1b6-0d01-f282-a4eed07c48a5
+	fromColumn: Loan_Details.Issue_Date
+	toColumn: Date.Date
+
+relationship 45ef70af-e89c-12b2-5ec1-bfdf04f5ee1c
+	fromColumn: Loan_Details.Customer_ID
+	toColumn: Customer_Details.Customer_ID
+

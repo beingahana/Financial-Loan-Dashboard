@@ -1,0 +1,25 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Customer_Details","Loan_Details","Analysis"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.145.1602.0 (25.07)+10647c9fa319b5e39936cdb21328038c371d1fe4
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Customer_Details
+ref table Loan_Details
+ref table DateTableTemplate_790f1ecc-3538-4647-ba32-a843b7f31f1d
+ref table Date
+ref table LocalDateTable_c98a2ad8-9ada-48fd-b5b4-f4d223403e39
+ref table Analysis
+
+ref cultureInfo en-IN
+

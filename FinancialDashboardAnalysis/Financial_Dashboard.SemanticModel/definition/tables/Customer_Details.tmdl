@@ -1,0 +1,125 @@
+table Customer_Details
+	lineageTag: 08bd3bb2-914b-4bbe-9af0-c334b8fa185f
+
+	column Customer_ID
+		dataType: string
+		lineageTag: c621656d-acbe-4263-a735-fe25cb457cdb
+		summarizeBy: none
+		sourceColumn: Customer_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: d27f45a5-9c34-489c-9c52-3f8e471e8f2b
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e103f6d-669f-4f25-bf88-becc8b743ae6
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 61117f46-afc8-4b71-8d0f-67c383f6a5ad
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Income
+		dataType: int64
+		formatString: 0
+		lineageTag: e9cede98-ad9e-46b9-b1b3-2f481d990850
+		summarizeBy: none
+		sourceColumn: Income
+
+		annotation SummarizationSetBy = Automatic
+
+	column Employment_Status
+		dataType: string
+		lineageTag: 8be94563-25a6-4696-9121-741133d62501
+		summarizeBy: none
+		sourceColumn: Employment_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Education_Level
+		dataType: string
+		lineageTag: 94cc97a0-7ddd-4d50-ae11-b2f7fdd9a718
+		summarizeBy: none
+		sourceColumn: Education_Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column Credit_Score
+		dataType: int64
+		formatString: 0
+		lineageTag: 2c4e2767-1623-4644-bda2-6b237adfc1f8
+		summarizeBy: none
+		sourceColumn: Credit_Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Groups'
+		dataType: string
+		lineageTag: 1ae25a05-871d-4442-b227-8cac6063a7fe
+		summarizeBy: none
+		sourceColumn: Age Groups
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit Score Buckets'
+		dataType: string
+		lineageTag: 1008bfec-e56c-43d8-9283-2d0004c61994
+		summarizeBy: none
+		sourceColumn: Credit Score Buckets
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Buckets'
+		dataType: string
+		lineageTag: 3f2460dc-2d07-4ee3-8a77-b57cf2604a1d
+		summarizeBy: none
+		sourceColumn: Income Buckets
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Risk Category'
+		dataType: string
+		lineageTag: 7ff23efc-1adc-47ce-9572-0beb4e5ed2a8
+		summarizeBy: none
+		sourceColumn: Risk Category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer_Details = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\sarka\Desktop\Ahana\CRIO PowerBI\QUESTION_Modeling3POWERBI.xlsx"), null, true),
+				    Customer_Details_Sheet = Source{[Item="Customer_Details",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Customer_Details_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Customer_ID", type text}, {"Name", type text}, {"Age", Int64.Type}, {"Gender", type text}, {"Income", Int64.Type}, {"Employment_Status", type text}, {"Education_Level", type text}, {"Credit_Score", Int64.Type}, {"Column9", type any}, {"Column10", type any}, {"Column11", type any}, {"Column12", type any}, {"Column13", type any}, {"Column14", type any}, {"Column15", type any}, {"Column16", type any}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}, {"Column22", type any}, {"Column23", type any}, {"Column24", type any}, {"Column25", type any}, {"Column26", type any}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Columns"),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Removed Duplicates", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Blank Rows",{{"Credit_Score", Int64.Type}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Changed Type1", "Age Groups", each if [Age] <= 25 then "Young" else if [Age] <= 45 then "Middle-aged" else if [Age] <= 58 then "Senior" else "Elder"),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "Credit Score Buckets", each if [Credit_Score] <= 579 then "Poor" else if [Credit_Score] <= 669 then "Fair" else if [Credit_Score] <= 739 then "Good" else if [Credit_Score] <= 799 then "Very Good" else "Excellent"),
+				    #"Added Conditional Column2" = Table.AddColumn(#"Added Conditional Column1", "Income Buckets", each if [Income] <= 50000 then "Low" else if [Income] <= 110000 then "Medium" else "High"),
+				    #"Added Conditional Column3" = Table.AddColumn(#"Added Conditional Column2", "Risk Category", each if [Credit_Score] < 580 then "High Risk" else if [Credit_Score] < 670 then "Moderate Risk" else if [Credit_Score] < 740 then "Low Risk" else "Very Low Risk")
+				in
+				    #"Added Conditional Column3"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
